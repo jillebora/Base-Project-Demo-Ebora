@@ -158,9 +158,9 @@ int main()
 	// CAMERA
 
 	glm::mat4 proj = glm::ortho(
-		-10.f, 10.f,   // left, right
-		-10.f, 10.f,   // bottom, top
-		-1.f, 100.f   // near, far
+		-400.f, 400.f,
+		-400.f, 400.f,
+		-1.f, 1000.f
 	);
 
 	glm::vec3 cameraPos =
@@ -177,8 +177,8 @@ int main()
 	P6::Particle particle;
 
 	particle.Position = glm::vec3(0.f, 0.f, 0.f);
-	particle.Velocity = glm::vec3(3.f, 0.f, 0.f);
-	particle.Acceleration = glm::vec3(-10.f, 0.f, 0.f);
+	particle.Velocity = glm::vec3(100.f, 0.f, 0.f);
+	particle.Acceleration = glm::vec3(-30.f, 0.f, 0.f);
 
 	// RENDER OBJECT
 
@@ -204,7 +204,7 @@ int main()
 		glm::vec3(1.f, 0.f, 0.f)
 	);
 
-	rp.Scale = glm::vec3(5.f);
+	rp.Scale = glm::vec3(100.f);
 
 	// LIST
 

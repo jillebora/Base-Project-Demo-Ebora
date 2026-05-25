@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="GDPHYSX.vcxproj" Id="32130fc8-8c42-4764-b721-faa8c775a866" />
+</Solution>

@@ -1,0 +1,71 @@
+# =========================
+
+# Visual Studio temporary files
+
+# =========================
+
+.vs
+.suo
+.user
+.userosscache
+.sln.docstates
+.vcxproj.user
+
+# =========================
+
+# Build output folders
+
+# =========================
+
+Debug
+Release
+x64
+x86
+build
+
+# =========================
+
+# Compiled source files
+
+# =========================
+
+.obj
+.o
+.exe
+.dll
+.lib
+.pdb
+.idb
+.ilk
+.ipdb
+
+# =========================
+
+# Logs and caches
+
+# =========================
+
+.log
+.tlog
+.tmp
+.cache
+.lastbuildstate
+
+# =========================
+
+# CMake (if ever used)
+
+# =========================
+
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+
+# =========================
+
+# OS generated files
+
+# =========================
+
+.DS_Store
+Thumbs.db

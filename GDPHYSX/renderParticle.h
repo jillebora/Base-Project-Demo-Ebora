@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 struct RenderObject
 {
@@ -17,6 +18,7 @@ struct RenderObject
     glm::mat4* view;
 
     GLsizei indexCount;
+    glm::vec3 baseScale = glm::vec3(1.f);
 };
 
 class RenderParticle
@@ -63,6 +65,9 @@ public:
     // Draw Function
     void Draw()
     {
+        if (PhysicsParticle->IsDestroyed())
+            return;
+
         glUseProgram(
             *RenderObjectRef->shaderProg
         );
@@ -79,7 +84,7 @@ public:
         transform =
             glm::scale(
                 transform,
-                Scale
+				Scale * RenderObjectRef->baseScale
             );
 
         GLuint transformLoc =
@@ -124,6 +129,9 @@ public:
                 *RenderObjectRef->view
             )
         );
+
+        GLuint colorLoc = glGetUniformLocation(*RenderObjectRef->shaderProg, "color");
+        glUniform3fv(colorLoc, 1, glm::value_ptr(Color));
 
         glBindVertexArray(
             *RenderObjectRef->VAO

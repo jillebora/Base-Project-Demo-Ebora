@@ -41,7 +41,7 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "PC01 Jillana Ebora", NULL, NULL);
 
 	P6::PhysicsWorld pWorld = P6::PhysicsWorld();
-
+	
 
 	if (!window)
 	{
@@ -172,16 +172,12 @@ int main()
 			for (auto* p : pWorld.GetParticles())
 			{
 				// when Particle reaches center
-				/*if (glm::length(p->Position) <= 1.f)
-				{
+				if (glm::length(p->Position) <= 1.f)
+				{ 
 					if (p == &p1)
 					{
 						p1.Destroy();
 					}
-				}*/
-				if (p == &p1 && p->Position.x >= 0.f)
-				{
-					p1.Destroy();
 				}
 			}
 		}

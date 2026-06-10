@@ -1,4 +1,3 @@
-#pragma once
 
 #include <list>
 #include "P6/particle.h"
@@ -6,22 +5,22 @@
 
 class ForceRegistry
 {
-	protected:
-		struct ParticleForceRegistry
-		{
-			P6::Particle* particle;
-			ForceGenerator* generator;
-		};
+protected:
+	struct ParticleForceRegistry
+	{
+		P6::Particle* particle;
+		ForceGenerator* generator;
+	};
 
-		std::list<ParticleForceRegistry> Registry;
+	std::list<ParticleForceRegistry> Registry;
 
-	public:
-		void Add(P6::Particle* particle, ForceGenerator* generator);
-		
-		void Remove(P6::Particle* particle, ForceGenerator* generator);
+public:
+	void Add(P6::Particle* particle, ForceGenerator* generator);
 
-		void Clear();
+	void Remove(P6::Particle* particle, ForceGenerator* generator);
 
-		void UpdateForces(float time);
+	void Clear();
+
+	void UpdateForces(float time);
 
 };

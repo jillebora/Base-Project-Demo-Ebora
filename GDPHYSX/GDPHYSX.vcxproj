@@ -133,13 +133,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dragForceGenerator.cpp" />
+    <ClCompile Include="forceRegistry.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="gravityForceGenerator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="P6\particle.cpp" />
+    <ClCompile Include="physicsWorld.cpp" />
+    <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dragForceGenerator.h" />
+    <ClInclude Include="forceGenerator.h" />
+    <ClInclude Include="forceRegistry.h" />
+    <ClInclude Include="gravityForceGenerator.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="P6\particle.h" />
+    <ClInclude Include="physicsWorld.h" />
     <ClInclude Include="renderParticle.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>

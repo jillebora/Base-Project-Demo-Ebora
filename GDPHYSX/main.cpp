@@ -1,4 +1,3 @@
-
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -172,16 +171,12 @@ int main()
 			for (auto* p : pWorld.GetParticles())
 			{
 				// when Particle reaches center
-				/*if (glm::length(p->Position) <= 1.f)
+				if (glm::length(p->Position) <= 1.f)
 				{
 					if (p == &p1)
 					{
 						p1.Destroy();
 					}
-				}*/
-				if (p == &p1 && p->Position.x >= 0.f)
-				{
-					p1.Destroy();
 				}
 			}
 		}

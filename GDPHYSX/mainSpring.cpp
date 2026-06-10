@@ -16,7 +16,8 @@
 #include "tiny_obj_loader.h"
 
 
-//#include "P6/anchoredSpring.h"
+#include "P6/anchoredSpring.h"
+#include "P6/particleSpring.h"
 #include "physicsWorld.h"
 #include "renderParticle.h"
 #include "shader.h"
@@ -35,13 +36,13 @@ int main()
 		return -1;
 	}
 
-	float windowWidth = 700;
-	float windowHeight = 700;
+	float windowWidth = 800;
+	float windowHeight = 800;
 
 	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Base Demo - Jillana Ebora", NULL, NULL);
 
 	P6::PhysicsWorld pWorld = P6::PhysicsWorld();
-	
+
 
 	if (!window)
 	{
@@ -59,7 +60,7 @@ int main()
 	// MODEL
 	Model sphere;
 	sphere.loadFromObj("3D/sphere.obj");
-	sphere.setScale(glm::vec3(10.f));
+	sphere.setScale(glm::vec3(1.f));
 
 	// CAMERA
 
@@ -81,57 +82,67 @@ int main()
 	// RED PARTICLE
 	P6::Particle p1;
 	p1.setName("Red");
-	p1.Position = glm::vec3(-400, 200, 0);
-	p1.Velocity = P6::Particle::makeVec(80.f, p1.Position);
-	p1.Acceleration = P6::Particle::makeVec(14.5f, p1.Position);
+	p1.Position = glm::vec3(-0, 200, 0);
+	p1.Velocity = //P6::Particle::makeVec(0.f, p1.Position);	
+		P6::Particle::makeVec(80.f, p1.Position);
+	p1.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
+		P6::Particle::makeVec(14.5f, p1.Position);
+	//P6::Particle::makeVec(14.5f, p1.Position);
 	p1.damping = 0.9f;
 	p1.mass = 50;
 	pWorld.AddParticle(&p1);
+	p1.AddForce(glm::vec3(0.6, 0.3, 0) * 500000.f);
 
-	// YELLOW PARTICLE
-
+	// RED PARTICLE
 	P6::Particle p2;
-	p2.setName("Yellow");
-	p2.Position = glm::vec3(-400.f, 0.f, 0);
-	p2.Velocity = P6::Particle::makeVec(110.f, p2.Position);
-	p2.Acceleration = P6::Particle::makeVec(3.f, p2.Position);
+	p2.setName("Blue");
+	p2.Position = glm::vec3(-50, 0, 0);
+	p2.Velocity = //P6::Particle::makeVec(0.f, p1.Position);	
+		P6::Particle::makeVec(80.f, p1.Position);
+	p2.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
+		P6::Particle::makeVec(14.5f, p1.Position);
+	//P6::Particle::makeVec(14.5f, p1.Position);
+	p2.damping = 0.9f;
+	p2.mass = 100;
 	pWorld.AddParticle(&p2);
-
-	// GREEN PARTICLE
-
-	P6::Particle p3;
-	p3.setName("Green");
-	p3.Position = glm::vec3(-400.f, -200.f, 0);
-	p3.Velocity = P6::Particle::makeVec(90.f, p3.Position);
-	p3.Acceleration = P6::Particle::makeVec(8.f, p3.Position);
-	pWorld.AddParticle(&p3);
+	//p1.AddForce(glm::vec3(0.6, 0.3, 0) * 500000.f);
 
 	// DRAG
 	DragForceGenerator drag = DragForceGenerator(0.14, 0.1);
 	pWorld.forceRegistry.Add(&p1, &drag);
 
 	// RENDER PARTICLE 
-	RenderParticle rp1(&p1, sphere.getRenderObject(), glm::vec3(1.f, 0.f, 0.f));
-	RenderParticle rp2(&p2, sphere.getRenderObject(), glm::vec3(1.f, 1.f, 0.f));
-	RenderParticle rp3(&p3, sphere.getRenderObject(), glm::vec3(0.f, 1.f, 0.f));
+	RenderParticle rp1(&p1, sphere.getRenderObject(), glm::vec3(0.4f, 0.f, 0.f));
+	RenderParticle rp2(&p2, sphere.getRenderObject(), glm::vec3(0.f, 0.f, 0.4f));
 
-	rp1.Scale = glm::vec3(5.f);
-	rp2.Scale = glm::vec3(5.f);
-	rp3.Scale = glm::vec3(5.f);
+	rp1.Scale = glm::vec3(50.f);
+	rp2.Scale = glm::vec3(50.f);
 
 	// MOVEMENT VECTOR
 
 	vector<P6::Particle*> particles;
 	particles.push_back(&p1);
 	particles.push_back(&p2);
-	particles.push_back(&p3);
 
 	// LIST
 
 	list<RenderParticle*> RenderParticles;
 	RenderParticles.push_back(&rp1);
 	RenderParticles.push_back(&rp2);
-	RenderParticles.push_back(&rp3);
+
+	// SPRING
+
+	ParticleSpring pS = ParticleSpring(&p1, 5, 1);
+	// Force will only pe applied to P2 since anchor is P1
+	pWorld.forceRegistry.Add(&p2, &pS);
+
+	ParticleSpring pS2 = ParticleSpring(&p2, 5, 1);
+	// Force will only pe applied to P1 since anchor is P2
+	pWorld.forceRegistry.Add(&p1, &pS2);
+
+	glm::vec3 springPos = glm::vec3(0, 200, 0);
+	AnchoredSpring aSpring = AnchoredSpring(springPos, 5, 0.5);
+	pWorld.forceRegistry.Add(&p1, &aSpring);
 
 	// TIME
 
@@ -171,17 +182,17 @@ int main()
 
 			pWorld.Update(timestep_sec);
 
-			for (auto* p : pWorld.GetParticles())
-			{
-				// when Particle reaches center
-				if (glm::length(p->Position) <= 1.f)
-				{ 
-					if (p == &p1)
-					{
-						p1.Destroy();
-					}
-				}
-			}
+			//for (auto* p : pWorld.GetParticles())
+			//{
+			//	// when Particle reaches center
+			//	if (glm::length(p->Position) <= 1.f)
+			//	{
+			//		if (p == &p1)
+			//		{
+			//			p1.Destroy();
+			//		}
+			//	}
+			//}
 		}
 
 

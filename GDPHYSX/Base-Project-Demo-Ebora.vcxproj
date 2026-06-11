@@ -143,6 +143,7 @@
     <ClCompile Include="P6\anchoredSpring.cpp" />
     <ClCompile Include="P6\particle.cpp" />
     <ClCompile Include="P6\particleSpring.cpp" />
+    <ClCompile Include="particleContact.cpp" />
     <ClCompile Include="physicsWorld.cpp" />
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="P6\anchoredSpring.h" />
     <ClInclude Include="P6\particle.h" />
     <ClInclude Include="P6\particleSpring.h" />
+    <ClInclude Include="particleContact.h" />
     <ClInclude Include="physicsWorld.h" />
     <ClInclude Include="renderParticle.h" />
     <ClInclude Include="shader.h" />

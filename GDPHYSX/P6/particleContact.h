@@ -1,6 +1,9 @@
 #pragma once
-#include "P6/particle.h"
+
+#include "particle.h"
 #include <vector>
+
+#include <glm/glm.hpp>
 
 class ParticleContact
 {

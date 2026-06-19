@@ -15,7 +15,7 @@ float ParticleContact::GetSeparatingSpeed()
 		velocity -= particles[1]->Velocity;
 
 
-	return 5.f;
+	return glm::dot(velocity, contactNormal);
 }
 
 void ParticleContact::ResolveInterPenetration(float time)
@@ -40,8 +40,8 @@ void ParticleContact::ResolveInterPenetration(float time)
 
 	if (particles[1])
 	{
-		glm::vec3 P_b = moveByMass * (-(float)1 / particles[1]->mass);
-		particles[1]->Position -= P_b;
+		glm::vec3 P_b = moveByMass * ((float)-1 / particles[1]->mass);
+		particles[1]->Position += P_b;
 	}
 
 	depth = 0;
@@ -59,27 +59,31 @@ void ParticleContact::ResolveVelocity(float time)
 	float deltaSpeed = newSS - separatingSpeed;
 
 	float totalMass = (float)1 / particles[0]->mass;
+
 	if (particles[1])
 		totalMass += (float)1 / particles[1]->mass;
 
 	if (totalMass <= 0)
 		return;
+
 	float impulse_mag = deltaSpeed / totalMass;
 
-	glm::vec3 Impulse;
+	// Get impulse vector using contact normal
+	glm::vec3 Impulse = contactNormal * impulse_mag;
 
+	// V = I/m
 	glm::vec3 V_a = Impulse * ((float)1 / particles[0]->mass);
 
+	// Vf = Vi + I/m
 	particles[0]->Velocity = particles[0]->Velocity + V_a;
 
 	if (particles[1])
 	{
 		// Apply impulse in the opp dir for B
-		glm::vec3 V_b = Impulse * (-(float)1 / particles[1]->mass);
+		glm::vec3 V_b = Impulse * ((float)-1 / particles[1]->mass);
 
 		// Vf = Vi + I/m
-		particles[1]->Velocity = particles[1]->Velocity - V_b;
+		particles[1]->Velocity = particles[1]->Velocity + V_b;
 	}
-
 
 }

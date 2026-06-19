@@ -18,11 +18,14 @@
 
 #include "P6/anchoredSpring.h"
 #include "P6/particleSpring.h"
+#include "p6/particleContact.h"
 #include "physicsWorld.h"
+#include "P6/rod.h"
 #include "renderParticle.h"
 #include "shader.h"
 #include "model.h"
 #include "dragForceGenerator.h"
+
 
 using namespace std;
 using namespace std::chrono_literals;
@@ -82,30 +85,38 @@ int main()
 	// RED PARTICLE
 	P6::Particle p1;
 	p1.setName("Red");
-	p1.Position = glm::vec3(-0, 200, 0);
-	p1.Velocity = //P6::Particle::makeVec(0.f, p1.Position);	
-		P6::Particle::makeVec(80.f, p1.Position);
-	p1.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
-		P6::Particle::makeVec(14.5f, p1.Position);
+	p1.Position = glm::vec3(0, 0, 0);
+	//p1.Velocity = //P6::Particle::makeVec(0.f, p1.Position);	
+		//P6::Particle::makeVec(80.f, p1.Position);
+	//p1.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
+		//P6::Particle::makeVec(14.5f, p1.Position);
 	//P6::Particle::makeVec(14.5f, p1.Position);
-	p1.damping = 0.9f;
+	///p1.damping = 0.9f;
 	p1.mass = 50;
 	pWorld.AddParticle(&p1);
-	p1.AddForce(glm::vec3(0.6, 0.3, 0) * 500000.f);
+	p1.AddForce(glm::vec3(0, 0.1f, 0) * 500000.f);
 
 	// RED PARTICLE
 	P6::Particle p2;
 	p2.setName("Blue");
-	p2.Position = glm::vec3(-50, 0, 0);
-	p2.Velocity = //P6::Particle::makeVec(0.f, p1.Position);	
-		P6::Particle::makeVec(80.f, p1.Position);
-	p2.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
-		P6::Particle::makeVec(14.5f, p1.Position);
+	p2.Position = glm::vec3(50, 0, 0);
+	//p2.Velocity = //P6::Particle::makeVec(0.f, p1.Position);	
+		//P6::Particle::makeVec(80.f, p1.Position);
+	//p2.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
+		//P6::Particle::makeVec(14.5f, p1.Position);
 	//P6::Particle::makeVec(14.5f, p1.Position);
-	p2.damping = 0.9f;
+	//p2.damping = 0.9f;
 	p2.mass = 100;
 	pWorld.AddParticle(&p2);
-	//p1.AddForce(glm::vec3(0.6, 0.3, 0) * 500000.f);
+	
+	// ROD
+	Rod* r = new Rod();
+	r->particles[0] = &p1;
+	r->particles[1] = &p2;
+	r->length = 200;
+
+	pWorld.Links.push_back(r);
+
 
 	// DRAG
 	DragForceGenerator drag = DragForceGenerator(0.14, 0.1);
@@ -130,19 +141,35 @@ int main()
 	RenderParticles.push_back(&rp1);
 	RenderParticles.push_back(&rp2);
 
+	// GRAVITY
+	GravityForceGenerator Gravity = GravityForceGenerator(glm::vec3(0.f));
+
+	// CONTACT
+
+	/*ParticleContact contact = ParticleContact();
+	contact.particles[0] = &p1;
+	contact.particles[1] = &p2;
+
+	contact.contactNormal =  p1.Position - p2.Position;
+	contact.contactNormal = glm::normalize(contact.contactNormal);
+	contact.restitiution = 1;*/
+
+	p1.Velocity = glm::vec3(-30.f, 0.f, 0.f);
+	p2.Velocity = glm::vec3(30.f, 0.f, 0.f);
+
 	// SPRING
 
-	ParticleSpring pS = ParticleSpring(&p1, 5, 1);
-	// Force will only pe applied to P2 since anchor is P1
-	pWorld.forceRegistry.Add(&p2, &pS);
+	//ParticleSpring pS = ParticleSpring(&p1, 5, 1);
+	//// Force will only pe applied to P2 since anchor is P1
+	//pWorld.forceRegistry.Add(&p2, &pS);
 
-	ParticleSpring pS2 = ParticleSpring(&p2, 5, 1);
-	// Force will only pe applied to P1 since anchor is P2
-	pWorld.forceRegistry.Add(&p1, &pS2);
+	//ParticleSpring pS2 = ParticleSpring(&p2, 5, 1);
+	//// Force will only pe applied to P1 since anchor is P2
+	//pWorld.forceRegistry.Add(&p1, &pS2);
 
-	glm::vec3 springPos = glm::vec3(0, 200, 0);
-	AnchoredSpring aSpring = AnchoredSpring(springPos, 5, 0.5);
-	pWorld.forceRegistry.Add(&p1, &aSpring);
+	//glm::vec3 springPos = glm::vec3(0, 200, 0);
+	//AnchoredSpring aSpring = AnchoredSpring(springPos, 5, 0.5);
+	//pWorld.forceRegistry.Add(&p1, &aSpring);
 
 	// TIME
 
@@ -182,17 +209,8 @@ int main()
 
 			pWorld.Update(timestep_sec);
 
-			//for (auto* p : pWorld.GetParticles())
-			//{
-			//	// when Particle reaches center
-			//	if (glm::length(p->Position) <= 1.f)
-			//	{
-			//		if (p == &p1)
-			//		{
-			//			p1.Destroy();
-			//		}
-			//	}
-			//}
+			//contact.Resolve(timestep_sec);
+
 		}
 
 

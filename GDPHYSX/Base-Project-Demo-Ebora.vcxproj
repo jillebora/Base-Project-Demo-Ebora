@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="P6\contactResolver.cpp" />
     <ClCompile Include="dragForceGenerator.cpp" />
     <ClCompile Include="forceGenerator.cpp" />
     <ClCompile Include="forceRegistry.cpp" />
@@ -143,11 +144,14 @@
     <ClCompile Include="P6\anchoredSpring.cpp" />
     <ClCompile Include="P6\particle.cpp" />
     <ClCompile Include="P6\particleSpring.cpp" />
-    <ClCompile Include="particleContact.cpp" />
+    <ClCompile Include="P6\particleContact.cpp" />
+    <ClCompile Include="P6\particleLink.cpp" />
     <ClCompile Include="physicsWorld.cpp" />
+    <ClCompile Include="P6\rod.cpp" />
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="P6\contactResolver.h" />
     <ClInclude Include="dragForceGenerator.h" />
     <ClInclude Include="forceGenerator.h" />
     <ClInclude Include="forceRegistry.h" />
@@ -156,9 +160,11 @@
     <ClInclude Include="P6\anchoredSpring.h" />
     <ClInclude Include="P6\particle.h" />
     <ClInclude Include="P6\particleSpring.h" />
-    <ClInclude Include="particleContact.h" />
+    <ClInclude Include="P6\particleContact.h" />
+    <ClInclude Include="P6\particleLink.h" />
     <ClInclude Include="physicsWorld.h" />
     <ClInclude Include="renderParticle.h" />
+    <ClInclude Include="P6\rod.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>

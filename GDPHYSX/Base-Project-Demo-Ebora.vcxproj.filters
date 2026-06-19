@@ -54,7 +54,16 @@
     <ClCompile Include="P6\particleSpring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="particleContact.cpp">
+    <ClCompile Include="P6\particleContact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P6\particleLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P6\rod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P6\contactResolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +104,16 @@
     <ClInclude Include="P6\particleSpring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="particleContact.h">
+    <ClInclude Include="P6\particleContact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P6\particleLink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P6\rod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P6\contactResolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,11 +17,37 @@ void P6::PhysicsWorld::Update(float time)
 	{
 		(*p)->Update(time);
 	}
+
+	GenerateContacts();
+
+	if (Contacts.size() > 0)
+	{
+		contactResolver.ResolveContacts(Contacts, time);
+	}
 }
 
 std::list<P6::Particle*>& P6::PhysicsWorld::GetParticles()
 {
 	return Particles;
+}
+
+void P6::PhysicsWorld::GenerateContacts()
+{
+	for (ParticleContact* c : Contacts)
+		delete c;
+
+	Contacts.clear();
+
+	for (std::list<ParticleLink*>::iterator i = Links.begin(); i != Links.end(); i++)
+	{
+		ParticleContact* contact = (*i)->GetContact();
+
+		if (contact != nullptr)
+		{
+			Contacts.push_back(contact);
+		}
+	}
+
 }
 
 void P6::PhysicsWorld::UpdateParticleList()

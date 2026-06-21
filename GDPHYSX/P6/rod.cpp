@@ -1,5 +1,5 @@
 #include "rod.h"
-#include "rod.h"
+#include <iostream>
 
 ParticleContact* Rod::GetContact()
 {
@@ -30,6 +30,10 @@ ParticleContact* Rod::GetContact()
 	}
 
 	ret->restitiution = restitution;
+
+	std::cout << "Current Length: " << currLen
+		<< "  Rod Length: " << length
+		<< "  Depth: " << ret->depth << std::endl;
 
 	return ret;
 

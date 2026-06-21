@@ -32,7 +32,7 @@ namespace P6
 		private:
 			void UpdateParticleList();
 
-			GravityForceGenerator Gravity = GravityForceGenerator(glm::vec3(0.0f, 0.f, 0.0f));
+			GravityForceGenerator Gravity = GravityForceGenerator(glm::vec3(0.0f, 10.f, 0.0f));
 			ContactResolver contactResolver = ContactResolver(20);
 
 	};

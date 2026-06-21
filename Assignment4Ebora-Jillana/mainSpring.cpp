@@ -91,7 +91,7 @@ int main()
 	//p1.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
 		//P6::Particle::makeVec(14.5f, p1.Position);
 	//P6::Particle::makeVec(14.5f, p1.Position);
-	p1.damping = 0.9f;
+	///p1.damping = 0.9f;
 	p1.mass = 50;
 	pWorld.AddParticle(&p1);
 	p1.AddForce(glm::vec3(0, 0.1f, 0) * 500000.f);
@@ -105,13 +105,18 @@ int main()
 	//p2.Acceleration = //P6::Particle::makeVec(0.f, p1.Position); 
 		//P6::Particle::makeVec(14.5f, p1.Position);
 	//P6::Particle::makeVec(14.5f, p1.Position);
-	p2.damping = 0.9f;
+	//p2.damping = 0.9f;
 	p2.mass = 100;
 	pWorld.AddParticle(&p2);
+	
+	// ROD
+	Rod* r = new Rod();
+	r->particles[0] = &p1;
+	r->particles[1] = &p2;
+	r->length = 200;
 
-	/*GravityForceGenerator gravity(glm::vec3(0.0f, 0.f, 0.0f));
-	pWorld.forceRegistry.Add(&p1, &gravity);
-	pWorld.forceRegistry.Add(&p2, &gravity);*/
+	pWorld.Links.push_back(r);
+
 
 	// DRAG
 	DragForceGenerator drag = DragForceGenerator(0.14, 0.1);
@@ -121,8 +126,8 @@ int main()
 	RenderParticle rp1(&p1, sphere.getRenderObject(), glm::vec3(0.4f, 0.f, 0.f));
 	RenderParticle rp2(&p2, sphere.getRenderObject(), glm::vec3(0.f, 0.f, 0.4f));
 
-	rp1.Scale = glm::vec3(25.f);
-	rp2.Scale = glm::vec3(25.f);
+	rp1.Scale = glm::vec3(50.f);
+	rp2.Scale = glm::vec3(50.f);
 
 	// MOVEMENT VECTOR
 
@@ -162,17 +167,9 @@ int main()
 	//// Force will only pe applied to P1 since anchor is P2
 	//pWorld.forceRegistry.Add(&p1, &pS2);
 
-	glm::vec3 springPos = glm::vec3(0, 200, 0);
-	AnchoredSpring aSpring = AnchoredSpring(springPos, 5, 0.5);
+	//glm::vec3 springPos = glm::vec3(0, 200, 0);
+	//AnchoredSpring aSpring = AnchoredSpring(springPos, 5, 0.5);
 	//pWorld.forceRegistry.Add(&p1, &aSpring);
-
-	// ROD
-	Rod* r = new Rod();
-	r->particles[0] = &p1;
-	r->particles[1] = &p2;
-	r->length = 200;
-
-	pWorld.Links.push_back(r);
 
 	// TIME
 

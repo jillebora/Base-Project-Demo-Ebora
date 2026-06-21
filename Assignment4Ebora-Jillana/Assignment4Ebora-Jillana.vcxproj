@@ -133,13 +133,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="mainChain.cpp" />
+    <ClCompile Include="P6\chain.cpp" />
     <ClCompile Include="P6\contactResolver.cpp" />
     <ClCompile Include="dragForceGenerator.cpp" />
     <ClCompile Include="forceGenerator.cpp" />
     <ClCompile Include="forceRegistry.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="gravityForceGenerator.cpp" />
-    <ClCompile Include="mainSpring.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="P6\anchoredSpring.cpp" />
     <ClCompile Include="P6\particle.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="P6\chain.h" />
     <ClInclude Include="P6\contactResolver.h" />
     <ClInclude Include="dragForceGenerator.h" />
     <ClInclude Include="forceGenerator.h" />

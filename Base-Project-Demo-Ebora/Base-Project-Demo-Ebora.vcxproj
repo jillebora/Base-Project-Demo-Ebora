@@ -133,7 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="mainChain.cpp" />
+    <ClCompile Include="mainSpring.cpp" />
     <ClCompile Include="P6\chain.cpp" />
     <ClCompile Include="P6\contactResolver.cpp" />
     <ClCompile Include="dragForceGenerator.cpp" />

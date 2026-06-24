@@ -24,10 +24,12 @@ namespace P6
 
 			std::list<P6::Particle*>& GetParticles();
 
-			void AddContact(P6::Particle* p1, P6::Particle p2, float restitiution, glm::vec3 contactNormal);
+			void AddContact(P6::Particle* p1, P6::Particle* p2, float restitiution, glm::vec3 contactNormal, float depth);
 
 		protected:
 			void GenerateContacts();
+
+			void GetOverlaps();
 
 		private:
 			void UpdateParticleList();

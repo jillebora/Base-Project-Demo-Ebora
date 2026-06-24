@@ -93,6 +93,7 @@ int main()
 	//P6::Particle::makeVec(14.5f, p1.Position);
 	///p1.damping = 0.9f;
 	p1.mass = 50;
+	p1.radius = 50;
 	pWorld.AddParticle(&p1);
 	p1.AddForce(glm::vec3(0, 0.1f, 0) * 500000.f);
 
@@ -126,7 +127,7 @@ int main()
 	RenderParticle rp1(&p1, sphere.getRenderObject(), glm::vec3(0.4f, 0.f, 0.f));
 	RenderParticle rp2(&p2, sphere.getRenderObject(), glm::vec3(0.f, 0.f, 0.4f));
 
-	rp1.Scale = glm::vec3(50.f);
+	rp1.Scale = glm::vec3(p1.radius, p1.radius, p1.radius);
 	rp2.Scale = glm::vec3(50.f);
 
 	// MOVEMENT VECTOR

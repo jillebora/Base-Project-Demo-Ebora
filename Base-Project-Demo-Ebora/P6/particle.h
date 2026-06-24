@@ -32,6 +32,11 @@ namespace P6
 
 			float mass = 1.f;	//KG
 
+			float radius = 1.f;
+
+			// How bouncy the particle is
+			float restitution = 1.f;
+
 			// Default damping = or "Air Drag"
 			float damping = 0.9f;
 
